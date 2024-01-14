@@ -3,7 +3,9 @@ package config
 import (
 	"bufio"
 	"errors"
+	"fmt"
 	"io"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -21,6 +23,7 @@ type ServerProperties struct {
 	Port       int    `cfg:"port"`
 	Dir        string `cfg:"dir"`
 	MaxClients int    `cfg:"maxclients"`
+	Databases  int    `cfg:"databases"`
 }
 
 // 初始化默认的服务端配置
@@ -85,4 +88,13 @@ func parse(src io.Reader) *ServerProperties {
 		}
 	}
 	return config
+}
+
+func ReadFilePath(filePath string) *ServerProperties {
+	file, err := os.Open(filePath)
+	defer file.Close()
+	if err != nil {
+		fmt.Println("读取file path error")
+	}
+	return parse(file)
 }

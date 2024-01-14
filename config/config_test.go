@@ -10,8 +10,7 @@ import (
 func TestName(t *testing.T) {
 	src := "bind 0.0.0.0\n" +
 		"port 6399\n" +
-		"appendonly yes\n" +
-		"peers a,b"
+		"appendonly yes\n"
 	p := parse(strings.NewReader(src))
 	fmt.Println(p)
 	// os.Open(filePath)
